@@ -7,6 +7,12 @@ var PokemonActions = {
       actionType: PokemonConstants.POKEMONS_RECEIVED,
       pokemons: pokemons
     });
+  },
+  receiveSinglePokemon: function(pokemon) {
+    PokeDispatcher.dispatch({
+      actionType: PokemonConstants.POKEMON_RECEIVED,
+      pokemon: pokemon
+    });
   }
 };
 

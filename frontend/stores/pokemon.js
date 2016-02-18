@@ -12,7 +12,10 @@ var resetPokemons = function(pokemons) {
   pokemons.forEach(function(pokemon) {
     _pokemons[pokemon.id] = pokemon;
   });
-  PokemonStore.__emitChange();
+};
+
+var updatePokemon = function(pokemon) {
+  _pokemons[pokemon.id] = pokemon;
 };
 
 PokemonStore.all = function() {
@@ -23,14 +26,21 @@ PokemonStore.all = function() {
   return pokemons;
 };
 
+PokemonStore.findById = function(pokeId) {
+  return _pokemons[pokeId];
+};
+
 PokemonStore.__onDispatch = function(payload) {
   switch(payload.actionType) {
     case PokemonConstants.POKEMONS_RECEIVED:
       resetPokemons(payload.pokemons);
+      PokemonStore.__emitChange();
+      break;
+    case PokemonConstants.POKEMON_RECEIVED:
+      updatePokemon(payload.pokemon);
+      PokemonStore.__emitChange();
       break;
   }
 };
-
-
 
 module.exports = PokemonStore;
