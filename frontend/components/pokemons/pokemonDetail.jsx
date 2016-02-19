@@ -1,6 +1,7 @@
 var React = require('react');
 var PokemonStore = require('../../stores/pokemon.js');
 var apiUtil = require('../../util/apiUtil.js');
+var ToysIndex = require('../toys/ToysIndex.jsx');
 
 var PokemonDetail = React.createClass({
   getInitialState: function() {
@@ -30,19 +31,40 @@ var PokemonDetail = React.createClass({
     return pokemon;
   },
 
+  displayToys: function() {
+    if (this.state.pokemon.hasOwnProperty('toys')) {
+      return (
+        <ToysIndex toys={this.state.pokemon.toys} />
+      );
+    } else {
+      return;
+    }
+  },
+
   detailDiv: function() {
     if(this.state.pokemon){
       return (
         <div className="detail">
-          Attack: {this.state.pokemon.attack}<br/>
-          Defense: {this.state.pokemon.defense}<br/>
-          <img src={this.state.pokemon.image_url} alt={this.state.pokemon.name} />
+          <img
+            src={this.state.pokemon.image_url}
+            alt={this.state.pokemon.name}
+            />
+          <ul>
+            <li>Name: {this.state.pokemon.name}</li>
+            <li>Type: {this.state.pokemon.poke_type}</li>
+            <li>Attack: {this.state.pokemon.attack}</li>
+            <li>Defense: {this.state.pokemon.defense}</li>
+            <li>
+            </li>
+            <li>{this.displayToys()}</li>
+          </ul>
         </div>
       );
     } else {
       return <div className="detail"></div>;
     }
   },
+
   render: function() {
     return (
       <div>
@@ -51,6 +73,7 @@ var PokemonDetail = React.createClass({
           {this.detailDiv()}
 
         </div>
+        {this.props.children}
       </div>
     );
   }

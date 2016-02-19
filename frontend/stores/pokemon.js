@@ -30,6 +30,26 @@ PokemonStore.findById = function(pokeId) {
   return _pokemons[pokeId];
 };
 
+PokemonStore.findPokeToy = function(pId, tId) {
+  if(_pokemons[pId]){
+  if(_pokemons[pId].hasOwnProperty('toys')){
+    var pokemonToys = _pokemons[pId].toys;
+    var idx = -1;
+    pokemonToys.forEach(function(toy,tidx){
+      if (toy.id === tId){
+        idx = tidx;
+      }
+    });
+
+    if(idx === -1) {return;}
+    return pokemonToys[idx];
+  } else{
+    return;
+  }} else {
+    return;
+  }
+};
+
 PokemonStore.__onDispatch = function(payload) {
   switch(payload.actionType) {
     case PokemonConstants.POKEMONS_RECEIVED:

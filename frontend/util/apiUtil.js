@@ -11,13 +11,18 @@ var ApiUtil = {
     });
   },
   fetchOnePokemon: function(pokemonId) {
+    console.log("calling fetchOnePokemon", pokemonId);
     $.ajax({
       url: "api/pokemon/"+pokemonId,
       method: "GET",
       success: function(pokemon) {
+        console.log("fetchOnePokemon Success: ", pokemon);
         PokemonActions.receiveSinglePokemon(pokemon);
       }
     });
+  },
+  createPokemon: function(){
+    debugger;
   }
 };
 
